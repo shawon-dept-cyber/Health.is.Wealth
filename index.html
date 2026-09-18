@@ -8,18 +8,14 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
-  <!-- ২ ও ৩ নম্বর ধাপের CSS এখানে বসবে -->
+  <!-- ২ নম্বর অংশের CSS এখানে বসবে -->
 
 </head>
 <body>
 
   <div class="cinematic-light"></div>
 
-  <!-- ৪ নম্বর ধাপের HTML কনটেন্ট এখানে বসবে -->
-
-  <!-- ৫ নম্বর ধাপের Popup Modal এখানে বসবে -->
-
-  <!-- ৬ নম্বর ধাপের JavaScript এখানে বসবে -->
+  <!-- ৩ নম্বর অংশের HTML কনটেন্ট, Popup Modal এবং JavaScript এখানে বসবে -->
 
 </body>
 </html>
@@ -105,9 +101,8 @@
     @keyframes subtitleGlow { 0% { text-shadow: 0 0 10px rgba(222, 219, 209, 0); } 100% { text-shadow: 0 0 20px rgba(222, 219, 209, 0.3); } }
     @keyframes goldSweep { 0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); } 100% { transform: translateX(100%) translateY(100%) rotate(45deg); } }
     .hero::after { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(45deg, transparent 40%, rgba(200, 169, 107, 0.03) 50%, transparent 60%); animation: goldSweep 8s linear infinite; pointer-events: none; z-index: 1; }
-  /* =========================================
-       POPUP MODAL STYLES
-    ========================================= */
+    
+    /* Popup Modal Styles */
     .modal-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); z-index: 9999; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: opacity 0.4s ease, visibility 0.4s ease; }
     .modal-overlay.active { opacity: 1; visibility: visible; }
     .modal-content { background: linear-gradient(145deg, rgba(12, 29, 53, 0.9), rgba(5, 11, 24, 0.95)); border: 1px solid rgba(200, 169, 107, 0.4); border-radius: 16px; padding: 40px 30px; max-width: 600px; width: 90%; max-height: 85vh; overflow-y: auto; position: relative; transform: scale(0.9) translateY(20px); transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1); box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(200, 169, 107, 0.15); text-align: center; transform-style: preserve-3d; }
@@ -141,8 +136,8 @@
       .cinematic-light, .hero::after { display: none; } .reveal { transition: none; transform: none; filter: none; }
       .orbit { animation: none; } .food-item:hover { transform: none; }
     }
-</style>
-<nav class="navbar" id="navbar">
+        </style>
+        <nav class="navbar" id="navbar">
     <div class="logo">LUMI<span>N</span>OUS</div>
     <div class="nav-note">A Quiet Place For Words</div>
   </nav>
@@ -213,6 +208,7 @@
     <div class="footer-logo">LUMINOUS</div>
     <div class="footer-note">WORDS · THOUGHTS · MOMENTS<br><br>EST. 2026 · BEYOND THE KNOWN</div>
   </footer>
+
   <!-- Popup Modal Structure -->
   <div id="food-modal" class="modal-overlay">
       <div class="modal-content">
@@ -220,15 +216,12 @@
           <div class="modal-emoji" id="modal-emoji">🍓</div>
           <h2 class="modal-title" id="modal-title">রাস্পবেরি</h2>
           <p class="modal-subtitle" id="modal-subtitle">১ থেকে ২ বাটি</p>
-          <div class="modal-body" id="modal-body">
-              <!-- তথ্য জাভাস্ক্রিপ্ট দিয়ে বসবে -->
-          </div>
+          <div class="modal-body" id="modal-body"></div>
       </div>
   </div>
+
   <script>
-    /* =========================================
-       MAIN INTERACTIONS
-    ========================================= */
+    /* MAIN INTERACTIONS */
     const navbar = document.getElementById("navbar");
     window.addEventListener("scroll", () => {
       if (window.scrollY > 30) { navbar.classList.add("scrolled"); } 
@@ -294,10 +287,56 @@
       });
     });
 
-    /* =========================================
-       POPUP MODAL LOGIC & FOOD DATA
-    ========================================= */
+    /* POPUP MODAL LOGIC & FOOD DATA */
     const foodData = {
       "রাস্পবেরি": { emoji: "🍓", body: `<h3>পুষ্টিগুণ</h3><p>ভিটামিন সি, অ্যান্টিঅক্সিডেন্ট, ফাইবার এবং ম্যাঙ্গানিজ সমৃদ্ধ।</p><h3>কারা খাবেন</h3><ul><li>যারা রোগ প্রতিরোধ ক্ষমতা বাড়াতে চান</li><li>যাদের হৃদযন্ত্রের সমস্যা আছে</li><li>ওজন কমাতে চান যারা</li></ul><h3>কেন খাবেন</h3><p>রাস্পবেরি ক্যান্সার প্রতিরোধে সাহায্য করে, হার্ট সুস্থ রাখে এবং ত্বকের উজ্জ্বলতা বাড়ায়।</p><h3>সঠিক পরিমাণ</h3><p>দৈনিক ১ থেকে ২ বাটি (প্রায় ১০০-১৫০ গ্রাম)।</p>` },
       "ডার্ক চকলেট": { emoji: "🍫", body: `<h3>পুষ্টিগুণ</h3><p>ফ্ল্যাভনয়েড, অ্যান্টিঅক্সিডেন্ট, ম্যাগনেসিয়াম এবং আয়রন সমৃদ্ধ।</p><h3>কারা খাবেন</h3><ul><li>যারা মনোযোগ বাড়াতে চান</li><li>যাদের ডিপ্রেশন বা মুড খারাপ থাকে</li><li>যাদের রক্তচাপ বেশি</li></ul><h3>কেন খাবেন</h3><p>ডার্ক চকলেট সেরোটোনিন হরমোন বাড়ায়, যা মন ভালো রাখে। এটি রক্তচাপ নিয়ন্ত্রণে সাহায্য করে।</p><h3>সঠিক পরিমাণ</h3><p>দৈনিক ১ থেকে ২ টুকরা (২০-৩০ গ্রাম, ৭০%+ কোকো)।</p>` },
-      "মধু": { emoji: "🍯", body: `<h3>পুষ্টিগুণ</h3><p>প্রাকৃতিক অ্যান্টিব্যাকটেরিয়াল, অ্যান্টিঅক্সিডেন্ট এবং এনজাইম সমৃদ্ধ।</p><h3>কারা খাবেন</h3><ul><li>যাদের হজমের সমস্যা আছে</li><li>যারা কাশি বা ঠান্ডায় ভুগছেন</li><li>যাদের ঘুমের সমস্যা আছে</li></ul><
+      "মধু": { emoji: "🍯", body: `<h3>পুষ্টিগুণ</h3><p>প্রাকৃতিক অ্যান্টিব্যাকটেরিয়াল, অ্যান্টিঅক্সিডেন্ট এবং এনজাইম সমৃদ্ধ।</p><h3>কারা খাবেন</h3><ul><li>যাদের হজমের সমস্যা আছে</li><li>যারা কাশি বা ঠান্ডায় ভুগছেন</li><li>যাদের ঘুমের সমস্যা আছে</li></ul><h3>কেন খাবেন</h3><p>মধু ইমিউনিটি বাড়ায়, হজমে সাহায্য করে এবং প্রাকৃতিক শক্তি জোগায়।</p><h3>সঠিক পরিমাণ</h3><p>দৈনিক ১ থেকে ২ চামচ (সকালে খালি পেটে ভালো)।</p>` },
+      "আইসক্রিম": { emoji: "🍦", body: `<h3>পুষ্টিগুণ</h3><p>ক্যালসিয়াম, প্রোটিন এবং ভিটামিন ডি সমৃদ্ধ (কম চিনি যুক্ত হলে ভালো)।</p><h3>কারা খাবেন</h3><ul><li>যারা ওজন বাড়াতে চান</li><li>যাদের হাড় দুর্বল</li><li>মাঝেমধ্যে আনন্দের জন্য</li></ul><h3>কেন খাবেন</h3><p>আইসক্রিম মন ভালো রাখে এবং হাড় মজবুত করে। তবে বেশি খেলে ওজন বাড়তে পারে।</p><h3>সঠিক পরিমাণ</h3><p>সপ্তাহে ১-২ বার, অর্ধেক কাপ (১০০ গ্রাম)।</p>` },
+      "আলু": { emoji: "🥔", body: `<h3>পুষ্টিগুণ</h3><p>কার্বোহাইড্রেট, পটাশিয়াম, ভিটামিন সি এবং ফাইবার সমৃদ্ধ।</p><h3>কারা খাবেন</h3><ul><li>যারা শক্তি বাড়াতে চান</li><li>খেলোয়াড় এবং পরিশ্রমী মানুষ</li><li>যাদের রক্তচাপ বেশি</li></ul><h3>কেন খাবেন</h3><p>আলু তাৎক্ষণিক শক্তি দেয়, পটাশিয়াম রক্তচাপ নিয়ন্ত্রণ করে এবং হজমে সাহায্য করে।</p><h3>সঠিক পরিমাণ</h3><p>দৈনিক ১ থেকে ২টি মাঝারি আকারের আলু (সেদ্ধ বা বেক করা)।</p>` },
+      "মাংস": { emoji: "🥩", body: `<h3>পুষ্টিগুণ</h3><p>উচ্চ প্রোটিন, আয়রন, জিঙ্ক এবং ভিটামিন বি১২ সমৃদ্ধ।</p><h3>কারা খাবেন</h3><ul><li>যারা পেশি শক্তি বাড়াতে চান</li><li>যাদের রক্তশূন্যতা (অ্যানিমিয়া) আছে</li><li>বয়স্ক যাদের প্রোটিন দরকার</li></ul><h3>কেন খাবেন</h3><p>মাংস পেশি তৈরি করে, রক্তে হিমোগ্লোবিন বাড়ায় এবং শরীরের ক্ষয় পূরণ করে।</p><h3>সঠিক পরিমাণ</h3><p>দৈনিক ১ থেকে ২ টুকরা (১০০-১৫০ গ্রাম), চর্বি ছাড়া।</p>` },
+      "দুধ": { emoji: "🥛", body: `<h3>পুষ্টিগুণ</h3><p>ক্যালসিয়াম, প্রোটিন, ভিটামিন ডি এবং বি১২ সমৃদ্ধ।</p><h3>কারা খাবেন</h3><ul><li>শিশু ও কিশোর-কিশোরী</li><li>যাদের হাড় ও দাঁত দুর্বল</li><li>যারা পেশি গঠন করতে চান</li></ul><h3>কেন খাবেন</h3><p>দুধ হাড় মজবুত করে, পেশি তৈরি করে এবং শরীরকে সতেজ রাখে।</p><h3>সঠিক পরিমাণ</h3><p>দৈনিক ১ থেকে ২ গ্লাস (২০০-৪০০ মিলি)।</p>` },
+      "ডিম": { emoji: "🥚", body: `<h3>পুষ্টিগুণ</h3><p>উচ্চ মানের প্রোটিন, ভিটামিন বি১২, ডি এবং কোলিন সমৃদ্ধ।</p><h3>কারা খাবেন</h3><ul><li>যারা পেশি বাড়াতে চান</li><li>যাদের মস্তিষ্কের কার্যক্ষমতা বাড়াতে হবে</li><li>সকালের নাস্তায় শক্তি দরকার যাদের</li></ul><h3>কেন খাবেন</h3><p>ডিম মস্তিষ্কের স্মৃতিশক্তি বাড়ায়, চোখের দৃষ্টি ভালো রাখে এবং পেশি গঠন করে।</p><h3>সঠিক পরিমাণ</h3><p>দৈনিক ১ থেকে ২টি (সেদ্ধ বা অমলেট)।</p>` },
+      "কুমড়ার বীজ": { emoji: "🎃", body: `<h3>পুষ্টিগুণ</h3><p>জিঙ্ক, ম্যাগনেসিয়াম, আয়রন এবং ওমেগা-৩ সমৃদ্ধ।</p><h3>কারা খাবেন</h3><ul><li>যাদের ত্বকের সমস্যা আছে</li><li>যাদের চুল পড়ে যায়</li><li>যাদের প্রোস্টেটের সমস্যা আছে</li></ul><h3>কেন খাবেন</h3><p>কুমড়ার বীজ ত্বক পরিষ্কার করে, চুল মজবুত করে এবং ইমিউনিটি বাড়ায়।</p><h3>সঠিক পরিমাণ</h3><p>দৈনিক ১ থেকে ২ মুঠো (২০-৩০ গ্রাম)।</p>` },
+      "লেবু": { emoji: "🍋", body: `<h3>পুষ্টিগুণ</h3><p>ভিটামিন সি, সাইট্রিক অ্যাসিড এবং অ্যান্টিঅক্সিডেন্ট সমৃদ্ধ।</p><h3>কারা খাবেন</h3><ul><li>যাদের ত্বকে দাগ বা ব্রণ আছে</li><li>যারা ওজন কমাতে চান</li><li>যাদের হজমের সমস্যা আছে</li></ul><h3>কেন খাবেন</h3><p>লেবু ত্বক উজ্জ্বল করে, হজম শক্তি বাড়ায় এবং শরীর থেকে টক্সিন বের করে।</p><h3>সঠিক পরিমাণ</h3><p>দৈনিক ১ থেকে ২ টুকরা (পানিতে মিশিয়ে)।</p>` },
+      "গাজর": { emoji: "🥕", body: `<h3>পুষ্টিগুণ</h3><p>বিটা-ক্যারোটিন, ভিটামিন এ, সি এবং ফাইবার সমৃদ্ধ।</p><h3>কারা খাবেন</h3><ul><li>যাদের চোখের সমস্যা আছে</li><li>যাদের ত্বক শুষ্ক</li><li>যারা ওজন কমাতে চান</li></ul><h3>কেন খাবেন</h3><p>গাজর চোখের দৃষ্টি বাড়ায়, ত্বক উজ্জ্বল করে এবং হজমে সাহায্য করে।</p><h3>সঠিক পরিমাণ</h3><p>দৈনিক ১ থেকে ২টি (কাঁচা বা রান্না করা)।</p>` },
+      "স্যামন মাছ": { emoji: "🐟", body: `<h3>পুষ্টিগুণ</h3><p>ওমেগা-৩ ফ্যাটি অ্যাসিড, প্রোটিন এবং ভিটামিন ডি সমৃদ্ধ।</p><h3>কারা খাবেন</h3><ul><li>যাদের হৃদরোগের ঝুঁকি আছে</li><li>যাদের ত্বক ও চুলের সমস্যা</li><li>যারা মস্তিষ্কের কার্যক্ষমতা বাড়াতে চান</li></ul><h3>কেন খাবেন</h3><p>স্যামন মাছ হৃদযন্ত্র সুস্থ রাখে, ত্বক ও চুল উজ্জ্বল করে এবং মস্তিষ্ক শক্তিশালী করে।</p><h3>সঠিক পরিমাণ</h3><p>সপ্তাহে ২-৩ দিন, ১ থেকে ২ টুকরা (১০০-১৫০ গ্রাম)।</p>` },
+      "ফলমূল": { emoji: "🍇", body: `<h3>পুষ্টিগুণ</h3><p>ভিটামিন, মিনারেল, ফাইবার এবং অ্যান্টিঅক্সিডেন্ট সমৃদ্ধ।</p><h3>কারা খাবেন</h3><ul><li>সব বয়সের মানুষ</li><li>যারা সুস্থ থাকতে চান</li><li>যাদের রোগ প্রতিরোধ ক্ষমতা কম</li></ul><h3>কেন খাবেন</h3><p>ফলমূল শরীরকে ডিটক্স করে, ইমিউনিটি বাড়ায় এবং দীর্ঘস্থায়ী রোগ প্রতিরোধ করে।</p><h3>সঠিক পরিমাণ</h3><p>দৈনিক ১ থেকে ২ বাটি (মিশ্র ফল)।</p>` },
+      "আখরোট": { emoji: "🌰", body: `<h3>পুষ্টিগুণ</h3><p>ওমেগা-৩, অ্যান্টিঅক্সিডেন্ট এবং ভিটামিন ই সমৃদ্ধ।</p><h3>কারা খাবেন</h3><ul><li>শিক্ষার্থী ও গবেষক</li><li>যাদের মস্তিষ্কের কার্যক্ষমতা বাড়াতে হবে</li><li>যাদের হৃদরোগের ঝুঁকি আছে</li></ul><h3>কেন খাবেন</h3><p>আখরোট মস্তিষ্কের শক্তি বাড়ায়, স্মৃতিশক্তি উন্নত করে এবং হৃদযন্ত্র সুস্থ রাখে।</p><h3>সঠিক পরিমাণ</h3><p>দৈনিক ১ থেকে ২ মুঠো (৪-৫টি আখরোট)।</p>` }
+    };
+
+    const modal = document.getElementById('food-modal');
+    const modalEmoji = document.getElementById('modal-emoji');
+    const modalTitle = document.getElementById('modal-title');
+    const modalSubtitle = document.getElementById('modal-subtitle');
+    const modalBody = document.getElementById('modal-body');
+
+    function openModal(foodName, amount) {
+      const data = foodData[foodName];
+      if (data) {
+        modalEmoji.textContent = data.emoji;
+        modalTitle.textContent = foodName;
+        modalSubtitle.textContent = amount;
+        modalBody.innerHTML = data.body;
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    function closeModal() {
+      modal.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) { closeModal(); }
+    });
+
+    document.querySelectorAll('.food-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const foodName = item.querySelector('.food-name').textContent;
+        const amount = item.querySelector('.food-amount').textContent;
+        openModal(foodName, amount);
+      });
+    });
+        </script>
