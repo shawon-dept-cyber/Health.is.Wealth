@@ -118,7 +118,19 @@
     @media (prefers-reduced-motion: reduce) {
       .cinematic-light, .hero::after { display: none; } .reveal { transition: none; transform: none; filter: none; }
       .orbit { animation: none; } .food-item:hover { transform: none; }
-    }
+    <!-- Popup Modal Structure -->
+<div id="food-modal" class="modal-overlay">
+    <div class="modal-content">
+        <button class="modal-close" onclick="closeModal()">✕</button>
+        <div class="modal-emoji" id="modal-emoji">🍓</div>
+        <h2 class="modal-title" id="modal-title">রাস্পবেরি</h2>
+        <p class="modal-subtitle" id="modal-subtitle">১ থেকে ২ বাটি</p>
+        <div class="modal-body" id="modal-body">
+            <!-- তথ্য এখানে জাভাস্ক্রিপ্ট দিয়ে বসবে -->
+        </div>
+    </div>
+</div>
+  }
 </style>
 <nav class="navbar" id="navbar">
     <div class="logo">LUMI<span>N</span>OUS</div>
