@@ -21,3 +21,239 @@
 
 </body>
 </html>
+<style>
+    :root {
+      --midnight: #050b18; --navy: #081426; --deep-blue: #0c1d35; --black: #02050b;
+      --offwhite: #f4f1e8; --soft: #dedbd1; --muted: #aeb6c5; --gold: #c8a96b;
+      --line: rgba(255, 255, 255, 0.10); --max: 1100px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      min-height: 100vh; color: var(--offwhite);
+      background: radial-gradient(circle at 20% 20%, rgba(25, 72, 130, 0.24), transparent 32%),
+                  radial-gradient(circle at 80% 10%, rgba(14, 53, 102, 0.20), transparent 30%),
+                  radial-gradient(circle at 50% 85%, rgba(16, 44, 80, 0.18), transparent 35%),
+                  linear-gradient(135deg, var(--black), var(--midnight) 35%, var(--navy) 70%, var(--black));
+      font-family: "Inter", sans-serif; overflow-x: hidden; perspective: 1000px;
+    }
+    body::before {
+      content: ""; position: fixed; inset: 0; pointer-events: none; z-index: -2;
+      background-image: radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,.65), transparent),
+                        radial-gradient(1px 1px at 30% 70%, rgba(255,255,255,.45), transparent),
+                        radial-gradient(1px 1px at 55% 30%, rgba(255,255,255,.55), transparent),
+                        radial-gradient(1px 1px at 75% 65%, rgba(255,255,255,.40), transparent),
+                        radial-gradient(1px 1px at 90% 25%, rgba(255,255,255,.55), transparent),
+                        radial-gradient(1px 1px at 45% 90%, rgba(255,255,255,.35), transparent);
+      background-size: 100% 100%; opacity: .55;
+    }
+    body::after { content: ""; position: fixed; inset: 0; pointer-events: none; z-index: -1; background: linear-gradient(rgba(1, 4, 10, .12), rgba(1, 4, 10, .32)); }
+    
+    .navbar {
+      position: fixed; top: 0; left: 0; width: 100%; height: 80px; display: flex;
+      align-items: center; justify-content: space-between; padding: 0 6vw;
+      border-bottom: 1px solid transparent; backdrop-filter: blur(10px); z-index: 1000;
+      transition: background .4s ease, border-color .4s ease;
+    }
+    .navbar.scrolled { background: rgba(2, 5, 11, .78); border-color: var(--line); }
+    .logo { font-family: "Cormorant Garamond", serif; font-size: 22px; letter-spacing: .28em; font-weight: 500; }
+    .logo span { color: var(--gold); }
+    .nav-note { font-size: 9px; letter-spacing: .24em; color: var(--muted); text-transform: uppercase; }
+    
+    .hero { min-height: 100vh; position: relative; display: flex; align-items: center; justify-content: center; padding: 120px 6vw 80px; overflow: hidden; perspective: 1000px; }
+    .hero-content { width: 100%; max-width: var(--max); position: relative; z-index: 2; }
+    .eyebrow { margin-bottom: 24px; font-size: 10px; letter-spacing: .34em; color: var(--gold); text-transform: uppercase; }
+    .hero-title { font-family: "Cormorant Garamond", serif; font-size: clamp(80px, 16vw, 220px); font-weight: 300; line-height: .80; letter-spacing: -.035em; position: relative; }
+    .hero-title span { display: block; transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), text-shadow 0.6s ease; text-shadow: 0 0 30px rgba(200, 169, 107, 0); }
+    .hero-title:hover span { transform: translateZ(30px) scale(1.02); text-shadow: 0 0 50px rgba(200, 169, 107, 0.4); }
+    .gold-line { width: 85px; height: 1px; margin: 34px 0 22px; background: var(--gold); opacity: .85; }
+    .hero-subtitle { max-width: 500px; font-family: "Cormorant Garamond", serif; font-size: clamp(22px, 3vw, 32px); line-height: 1.25; color: var(--soft); font-weight: 300; animation: subtitleGlow 4s ease-in-out infinite alternate; }
+    
+    .orbit { position: absolute; width: min(58vw, 650px); height: min(58vw, 650px); border: 1px solid rgba(200, 169, 107, .15); border-radius: 50%; right: -8%; top: 50%; transform: translateY(-50%) rotate(-18deg); pointer-events: none; animation: orbitPulse 6s ease-in-out infinite alternate; }
+    .orbit::before { content: ""; position: absolute; width: 8px; height: 8px; background: var(--gold); border-radius: 50%; top: 16%; left: 16%; box-shadow: 0 0 18px rgba(200, 169, 107, .55); }
+    .orbit::after { content: ""; position: absolute; inset: 13%; border: 1px solid rgba(255,255,255,.05); border-radius: 50%; }
+    
+    .article-section { max-width: var(--max); margin: 0 auto; padding: 130px 6vw 80px; transform-style: preserve-3d; perspective: 1000px; }
+    .section-label { display: flex; align-items: center; gap: 14px; margin-bottom: 25px; font-size: 9px; letter-spacing: .28em; color: var(--gold); text-transform: uppercase; }
+    .section-label::before { content: ""; width: 34px; height: 1px; background: var(--gold); }
+    .health-question { font-family: "Cormorant Garamond", serif; font-size: clamp(36px, 5vw, 56px); font-weight: 500; color: var(--gold); margin-bottom: 40px; line-height: 1.1; }
+    
+    .food-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 25px; margin-bottom: 20px; }
+    .food-item { background: rgba(255, 255, 255, 0.03); border: 1px solid var(--line); border-radius: 8px; padding: 25px 20px; text-align: center; transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.4s ease, border-color 0.4s ease; transform-style: preserve-3d; }
+    .food-item:hover { transform: translateY(-10px) rotateX(5deg) rotateY(-5deg) scale(1.03); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(200, 169, 107, 0.2); border-color: rgba(200, 169, 107, 0.6); z-index: 10; }
+    .food-emoji { font-size: 40px; display: block; margin-bottom: 15px; }
+    .food-name { font-family: "Cormorant Garamond", serif; font-size: 24px; font-weight: 600; color: var(--offwhite); margin-bottom: 10px; }
+    .food-amount { font-family: "Inter", sans-serif; font-size: 14px; color: var(--muted); letter-spacing: 0.05em; }
+    
+    .lotus-section { min-height: 65vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 100px 6vw; position: relative; transform-style: preserve-3d; perspective: 1000px; }
+    .lotus { font-size: 76px; margin-bottom: 25px; filter: drop-shadow(0 0 25px rgba(50, 100, 170, .25)); }
+    .lotus-title { font-family: "Cormorant Garamond", serif; font-size: clamp(42px, 7vw, 78px); font-weight: 400; margin-bottom: 18px; }
+    .lotus-caption { font-family: "Cormorant Garamond", serif; font-size: clamp(19px, 2.4vw, 27px); color: var(--muted); font-style: italic; letter-spacing: .04em; }
+    
+    footer { border-top: 1px solid var(--line); padding: 35px 6vw; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .footer-logo { font-family: "Cormorant Garamond", serif; font-size: 18px; letter-spacing: .25em; }
+    .footer-note { font-size: 8px; letter-spacing: .25em; color: var(--muted); text-transform: uppercase; text-align: right; }
+    
+    .reveal { opacity: 0; transform: translateY(60px) scale(0.95) rotateX(5deg); filter: blur(6px); transition: opacity 1.2s cubic-bezier(0.19, 1, 0.22, 1), transform 1.2s cubic-bezier(0.19, 1, 0.22, 1), filter 1.2s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0) scale(1) rotateX(0deg); filter: blur(0px); }
+    
+    .cinematic-light { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 0; background: radial-gradient(circle at 50% 50%, rgba(200, 169, 107, 0.05) 0%, transparent 60%); transition: background 0.1s ease; }
+    
+    @keyframes orbitPulse { 0% { box-shadow: 0 0 20px rgba(200, 169, 107, 0.05); border-color: rgba(200, 169, 107, 0.15); } 100% { box-shadow: 0 0 60px rgba(200, 169, 107, 0.15), inset 0 0 40px rgba(200, 169, 107, 0.05); border-color: rgba(200, 169, 107, 0.4); } }
+    @keyframes subtitleGlow { 0% { text-shadow: 0 0 10px rgba(222, 219, 209, 0); } 100% { text-shadow: 0 0 20px rgba(222, 219, 209, 0.3); } }
+    @keyframes goldSweep { 0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); } 100% { transform: translateX(100%) translateY(100%) rotate(45deg); } }
+    .hero::after { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(45deg, transparent 40%, rgba(200, 169, 107, 0.03) 50%, transparent 60%); animation: goldSweep 8s linear infinite; pointer-events: none; z-index: 1; }
+    
+    @media (max-width: 700px) {
+      .navbar { height: 68px; padding: 0 22px; } .nav-note { display: none; }
+      .hero { padding: 110px 24px 70px; } .hero-title { font-size: clamp(72px, 22vw, 130px); } .hero-subtitle { font-size: 22px; }
+      .orbit { width: 110vw; height: 110vw; right: -55%; } .article-section { padding: 100px 24px 60px; }
+      .health-question { font-size: 36px; margin-bottom: 25px; } .food-grid { grid-template-columns: 1fr 1fr; gap: 15px; }
+      .food-item { padding: 15px 10px; } .food-emoji { font-size: 30px; } .food-name { font-size: 18px; } .food-amount { font-size: 12px; }
+      .lotus-section { min-height: 55vh; padding: 90px 24px; } .lotus { font-size: 64px; }
+      footer { padding: 30px 24px; flex-direction: column; align-items: flex-start; } .footer-note { text-align: left; }
+      .cinematic-light { display: none; } .hero::after { display: none; }
+      .food-item:hover { transform: translateY(-5px) scale(1.02); } .reveal { transform: translateY(30px) scale(1); filter: blur(3px); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .cinematic-light, .hero::after { display: none; } .reveal { transition: none; transform: none; filter: none; }
+      .orbit { animation: none; } .food-item:hover { transform: none; }
+    }
+</style>
+<nav class="navbar" id="navbar">
+    <div class="logo">LUMI<span>N</span>OUS</div>
+    <div class="nav-note">A Quiet Place For Words</div>
+  </nav>
+
+  <main>
+    <section class="hero">
+      <div class="orbit" id="orbit"></div>
+      <div class="hero-content">
+        <div class="eyebrow">LUMINOUS · THE ARCHIVE</div>
+        <h1 class="hero-title"><span>Health is Wealth</span></h1>
+        <div class="gold-line"></div>
+        <p class="hero-subtitle">A quiet moment beneath the rain.</p>
+      </div>
+    </section>
+
+    <section class="article-section reveal">
+      <div class="section-label">I — Happiness</div>
+      <h2 class="health-question">Why am I so happy?</h2>
+      <div class="food-grid">
+        <div class="food-item"><span class="food-emoji">🍓</span><div class="food-name">রাস্পবেরি</div><div class="food-amount">১ থেকে ২ বাটি</div></div>
+        <div class="food-item"><span class="food-emoji">🍫</span><div class="food-name">ডার্ক চকলেট</div><div class="food-amount">১ থেকে ২ টুকরা</div></div>
+        <div class="food-item"><span class="food-emoji">🍯</span><div class="food-name">মধু</div><div class="food-amount">১ থেকে ২ চামচ</div></div>
+        <div class="food-item"><span class="food-emoji">🍦</span><div class="food-name">আইসক্রিম</div><div class="food-amount">অর্ধেক কাপ</div></div>
+      </div>
+    </section>
+
+    <section class="article-section reveal">
+      <div class="section-label">II — Strength</div>
+      <h2 class="health-question">Why am I so strong?</h2>
+      <div class="food-grid">
+        <div class="food-item"><span class="food-emoji">🥔</span><div class="food-name">আলু</div><div class="food-amount">১ থেকে ২টি</div></div>
+        <div class="food-item"><span class="food-emoji">🥩</span><div class="food-name">মাংস</div><div class="food-amount">১ থেকে ২ টুকরা</div></div>
+        <div class="food-item"><span class="food-emoji">🥛</span><div class="food-name">দুধ</div><div class="food-amount">১ থেকে ২ গ্লাস</div></div>
+        <div class="food-item"><span class="food-emoji">🥚</span><div class="food-name">ডিম</div><div class="food-amount">১ থেকে ২টি</div></div>
+      </div>
+    </section>
+
+    <section class="article-section reveal">
+      <div class="section-label">III — Clear Skin</div>
+      <h2 class="health-question">Why is my skin so clear?</h2>
+      <div class="food-grid">
+        <div class="food-item"><span class="food-emoji">🎃</span><div class="food-name">কুমড়ার বীজ</div><div class="food-amount">১ থেকে ২ মুঠো</div></div>
+        <div class="food-item"><span class="food-emoji">🍋</span><div class="food-name">লেবু</div><div class="food-amount">১ থেকে ২ টুকরা</div></div>
+        <div class="food-item"><span class="food-emoji">🥕</span><div class="food-name">গাজর</div><div class="food-amount">১ থেকে ২টি</div></div>
+        <div class="food-item"><span class="food-emoji">🐟</span><div class="food-name">স্যামন মাছ</div><div class="food-amount">১ থেকে ২ টুকরা</div></div>
+      </div>
+    </section>
+
+    <section class="article-section reveal">
+      <div class="section-label">IV — Smartness</div>
+      <h2 class="health-question">Why am I so smart?</h2>
+      <div class="food-grid">
+        <div class="food-item"><span class="food-emoji">🍇</span><div class="food-name">ফলমূল</div><div class="food-amount">১ থেকে ২ বাটি</div></div>
+        <div class="food-item"><span class="food-emoji">🍫</span><div class="food-name">ডার্ক চকলেট</div><div class="food-amount">১ থেকে ২ টুকরা</div></div>
+        <div class="food-item"><span class="food-emoji">🍯</span><div class="food-name">মধু</div><div class="food-amount">১ থেকে ২ চামচ</div></div>
+        <div class="food-item"><span class="food-emoji">🌰</span><div class="food-name">আখরোট</div><div class="food-amount">১ থেকে ২ মুঠো</div></div>
+      </div>
+    </section>
+
+    <section class="lotus-section reveal">
+      <div class="lotus">🪷</div>
+      <h2 class="lotus-title">The Blue Lotus.</h2>
+      <p class="lotus-caption">Rooted in depth · Blooming through knowledge · Lost in infinity</p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-logo">LUMINOUS</div>
+    <div class="footer-note">WORDS · THOUGHTS · MOMENTS<br><br>EST. 2026 · BEYOND THE KNOWN</div>
+    </footer>
+    <script>
+    const navbar = document.getElementById("navbar");
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 30) { navbar.classList.add("scrolled"); } 
+      else { navbar.classList.remove("scrolled"); }
+    });
+
+    const orbit = document.getElementById("orbit");
+    document.addEventListener("mousemove", (event) => {
+      const x = (event.clientX / window.innerWidth - 0.5) * 18;
+      const y = (event.clientY / window.innerHeight - 0.5) * 18;
+      orbit.style.transform = `translateY(-50%) translate(${x}px, ${y}px) rotate(-18deg)`;
+    });
+
+    const revealElements = document.querySelectorAll(".reveal");
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 }
+    );
+    revealElements.forEach((element) => { revealObserver.observe(element); });
+
+    const cinematicLight = document.querySelector('.cinematic-light');
+    if (cinematicLight) {
+      document.addEventListener('mousemove', (e) => {
+        const x = (e.clientX / window.innerWidth) * 100;
+        const y = (e.clientY / window.innerHeight) * 100;
+        cinematicLight.style.background = `radial-gradient(circle at ${x}% ${y}%, rgba(200, 169, 107, 0.08) 0%, transparent 60%)`;
+      });
+    }
+
+    const heroTitle = document.querySelector('.hero-title');
+    const heroSubtitle = document.querySelector('.hero-subtitle');
+    window.addEventListener('scroll', () => {
+      const scrolled = window.scrollY;
+      if (heroTitle && scrolled < window.innerHeight) {
+        heroTitle.style.transform = `translateY(${scrolled * 0.2}px) scale(${1 - scrolled * 0.0002})`;
+        heroTitle.style.opacity = 1 - (scrolled / 800);
+        if (heroSubtitle) {
+          heroSubtitle.style.transform = `translateY(${scrolled * 0.4}px)`;
+          heroSubtitle.style.opacity = 1 - (scrolled / 600);
+        }
+      }
+    });
+
+    const foodCards = document.querySelectorAll('.food-item');
+    foodCards.forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = ((y - centerY) / centerY) * -8;
+        const rotateY = ((x - centerX) / centerX) * 8;
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)`;
+      });
+    });
+    </script>
